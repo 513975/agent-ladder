@@ -1,0 +1,54 @@
+version = 1
+
+# Models below this capability tier cannot be selected by any route.
+minimum_tier = 100
+denied_model_patterns = ["luna"]
+
+[policy]
+mode = "auto"
+auto_upgrade = true
+review_mode = "risk_based"
+max_parallel_agents = 2
+max_child_calls = 4
+max_depth = 1
+max_retries = 1
+reserve_required_review_call = true
+
+[models.terra]
+id = "gpt-5.6-terra"
+tier = 100
+enabled = true
+
+[models.sol]
+id = "gpt-5.6-sol"
+tier = 200
+enabled = true
+
+[routes.explore]
+models = ["terra"]
+reasoning_effort = "low"
+
+[routes.simple_implementation]
+models = ["terra"]
+reasoning_effort = "low"
+
+[routes.implementation]
+models = ["terra"]
+reasoning_effort = "medium"
+
+# Complex work requires Sol's configured capability tier.
+[routes.complex_implementation]
+models = ["sol"]
+reasoning_effort = "high"
+minimum_tier = 200
+
+# Independent high-risk review and critical work must not fall below Sol's tier.
+[routes.review]
+models = ["sol"]
+reasoning_effort = "high"
+minimum_tier = 200
+
+[routes.critical]
+models = ["sol"]
+reasoning_effort = "xhigh"
+minimum_tier = 200

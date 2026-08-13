@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Ladder"
+  short_description: "按任务风险在模型能力等级之间调度开发工作"
+  default_prompt: "使用 $agent-ladder 规划并执行这个任务，只在必要时升级模型。"
